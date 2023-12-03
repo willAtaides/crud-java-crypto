@@ -1,0 +1,77 @@
+create database segurancaExame;
+use segurancaExame;
+
+CREATE TABLE paciente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL
+);
+
+CREATE TABLE medico (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    especialidade VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE creatinina (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    resultado VARCHAR(100) NOT NULL, 
+    id_paciente INT NOT NULL,
+    id_medico INT NOT NULL,
+    FOREIGN KEY (id_paciente) REFERENCES paciente(id),
+    FOREIGN KEY (id_medico) REFERENCES medico(id)
+
+);
+
+
+CREATE TABLE valorespadroes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    limite_inferior DECIMAL(10, 2),
+    limite_superior DECIMAL(10, 2),
+    unidade VARCHAR(50) NOT NULL,
+    valor_referencia VARCHAR(100)
+);
+
+
+CREATE TABLE senha (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    chave_secreta VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(50) UNIQUE NOT NULL,
+    senha VARCHAR(64) NOT NULL
+);
+
+
+INSERT INTO medico (nome, cpf, especialidade) VALUES
+('Dr. Cleber Medeiros', '951.456.753-01', 'Ortopedia');
+
+INSERT INTO medico (nome, cpf, especialidade) VALUES
+('Dra. Hope Megacci', '154.456.985-03', 'Cardiologista');
+
+INSERT INTO medico (nome, cpf, especialidade) VALUES
+('Dr. Frank Aguiar', '111.258.653-04', 'Dermatologia');
+
+INSERT INTO medico (nome, cpf, especialidade) VALUES
+('Dra. Nina Dobrev', '241.324.111-05', 'Cirurgia');
+
+
+INSERT INTO paciente (nome, cpf) VALUES
+('Carlinhos Gomes Abreu', '987.222.211-21');
+
+INSERT INTO paciente (nome, cpf) VALUES
+('Antonio Marcedes Pinto', '555.333.213-33');
+
+INSERT INTO paciente (nome, cpf) VALUES
+('Cleyton Chargas', '985.123.789-45');
+
+INSERT INTO paciente (nome, cpf) VALUES
+('Manuela Luz Paiva', '213.590.098-25');
+
+INSERT INTO valorespadroes(limite_inferior, limite_superior, unidade, valor_referencia) VALUES
+(2.3, 5.0, 'mg/dL', 'Valores normais'); 
